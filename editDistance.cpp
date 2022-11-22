@@ -61,7 +61,6 @@ int main()
             }
         }
 
-        std::cout << "edits needed: " << num_edits << endl;
         // DELETE ME, loops thru all array indices
         for (int i = 0; i < ((int)str_from.length() + 1); i++)
         {
@@ -74,6 +73,34 @@ int main()
             std::cout << endl;
         }
 
+        // backtrace to calculate edits
+        bool keepGoing = true;
+        int row = numRows + 1;
+        int col = numCols + 1;
+        while ((row != 0) && (col != 0)) {
+            // if match, go diagonal back
+            if (str_from[row-1] == str_to[col-1]) {
+                row--, col--;
+            } else { 
+                // otherwise determine smallest of 3 sidevals and 
+                // needed edit type
+                diag_back = matrix[row-1][col-1];
+                left = matrix[row][col-1];
+                top = matrix[row-1][col];
+                int smallest = min(diag_back, min(left, top));
+                if (diag_back == smallest) { row--, col--; } // replace
+                else if (left == smallest) { col--; } // insert
+                else { row--; } // delete
+                std::cout << "s: " << smallest << endl;
+                num_edits++;
+            }
+            
+            
+                // increment edit count
+
+        }
+        std::cout << "edits needed: " << num_edits << endl;
+
         num_edits = 0;
         // fetch first string for loop
         std::getline(std::cin, str_from);
@@ -82,5 +109,5 @@ int main()
 }
 
 // remove initialization of array indices to -1
-// CURRENT: working on getneighbors() errors
+// CURRENT: reverse-traversal, make edit string
 // questions: handle upper/lowercase the same?
