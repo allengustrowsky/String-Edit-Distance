@@ -1,14 +1,17 @@
 #include <string>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
 int main()
 {
-
     // read strings from input
     string str_from;
     string str_to;
+    int *neighbors = nullptr;
+    int num_edits = 0;
+    int diag_back, left, top;
     std::getline(std::cin, str_from);
     while (str_from != "")
     {
@@ -41,12 +44,24 @@ int main()
                     // if letters match, use value of previous diagonal
                     matrix[i][j] = matrix[i-1][j-1];
                 } else {
-                    // TODO: fill in with unequal operation
-                    matrix[i][j] = -1;
+                    // if they don't match, choose smallest of neighbors + 1
+                    diag_back = matrix[i-1][j-1];
+                    left = matrix[i][j-1];
+                    top = matrix[i-1][j];
+                    
+                    // neighbors = new int[3] {
+                    //     matrix[i-1][j-1], // back diagonal
+                    //     matrix[i][j-1], // left
+                    //     matrix[i-1][j], // above
+                    // };
+                
+                    // delete neighbors;
+                    matrix[i][j] = min(diag_back, min(left, top)) + 1;
                 }
             }
         }
 
+        std::cout << "edits needed: " << num_edits << endl;
         // DELETE ME, loops thru all array indices
         for (int i = 0; i < ((int)str_from.length() + 1); i++)
         {
@@ -59,6 +74,7 @@ int main()
             std::cout << endl;
         }
 
+        num_edits = 0;
         // fetch first string for loop
         std::getline(std::cin, str_from);
     }
