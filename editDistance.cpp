@@ -15,16 +15,36 @@ int main()
         // have to fetch input strings at different times
         std::getline(std::cin, str_to);
 
-        int matrix[(int)str_from.length() + 1][(int)str_to.length() + 1];
+        // fetch array dimensions
+        int numRows = (int)str_from.length();
+        int numCols = (int)str_to.length();
+
+        int matrix[(numRows + 1)][(numCols + 1)];
 
         // initialize first row
-        // thanks w3schools for showing how to get array length below
-        for (int i = 0; i < (int)(sizeof(matrix[0]) / sizeof(int)); i++) {
+        for (int i = 0; i < (numCols + 1); i++)
+        {
             matrix[0][i] = i;
         }
         // initialize first column
-        for (int i = 1; i < (int)(sizeof(matrix) / sizeof(matrix[0])); i++) {
+        for (int i = 1; i < (numRows + 1); i++)
+        {
             matrix[i][0] = i;
+        }
+
+        // calculate values in array
+        for (int i = 1; i < (numRows + 1); i++) {
+            // for each letter, compare to letters in column
+            for (int j = 1; j < (numCols + 1); j++) {
+                // compare letters
+                if (str_from[i-1] == str_to[j-1]) {
+                    // if letters match, use value of previous diagonal
+                    matrix[i][j] = matrix[i-1][j-1];
+                } else {
+                    // TODO: fill in with unequal operation
+                    matrix[i][j] = -1;
+                }
+            }
         }
 
         // DELETE ME, loops thru all array indices
@@ -45,6 +65,6 @@ int main()
     std::cout << "str_from: " << str_from << "; str_to: " << str_to << endl;
 }
 
-
-
 // remove initialization of array indices to -1
+// CURRENT: working on getneighbors() errors
+// questions: handle upper/lowercase the same?
