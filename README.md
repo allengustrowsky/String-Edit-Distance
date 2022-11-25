@@ -21,5 +21,4 @@ The resulting minimum number of edits and edit string will be output:
 After this, two more strings can be entered, and the process will repeat. To break out of the loop and end the program, just enter an empty line for the first string.
 
 ## Limitations
-Do not put `+`, `-`, `/`, or `^` into the input strings since those are like keywords in this program.  Also, do not entering an empty string for the second input and do not enter only spaces for either input string.
-<!-- don't use special chars for ops-->
+Do not put `+`, `-`, `/`, or `^` into the input strings since those are like keywords in this program.
