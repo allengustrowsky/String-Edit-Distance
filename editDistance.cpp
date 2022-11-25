@@ -91,6 +91,24 @@ int main()
             }
         }
 
+        // handle extra edits needed once row or column hit the
+        // top or left of the matrix
+        if (row > 0) {
+            // add (row) number of delete chars
+            for (int i = row; i > 0; i--) {
+                editStr = deleteChar + editStr;
+                numEdits++;
+            }
+        }
+
+        if (col > 0) {
+            // remaining characters need to be inserted
+            for (int i = col; i > 0; i--) {
+                editStr = insertChar + strTo[i - 1] + editStr;
+                numEdits++;
+            }
+        }
+
         // print final results
         std::cout << numEdits << ":  " << editStr << endl;
 
